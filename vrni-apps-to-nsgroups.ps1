@@ -1,31 +1,21 @@
-#Setup
-#Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
-#Install-Module PowervRNI
-#Find-Module PowerNSX | Install-Module -scope CurrentUser
-#Install-Module Microsoft.PowerShell.SecretManagement, Microsoft.PowerShell.SecretStore
-#Register-SecretVault -Name LocalStore -ModuleName Microsoft.PowerShell.SecretStore  -DefaultVault
-#Get-Credential -username admin@local -Title "Add vRNI Credentals to the Vault" | set-secret -name vrni
-#Get-Credential -username admin -Title "Add NSX Credentals to the Vault" | set-secret -name nsx
-
 Import-Module PowervRNI
 Import-Module PowerNSX
 
+$vRNI_Server="vrni.far-away.galaxy"
+$NSX_Server="nsx-t-mgr.far-away.galaxy"
+
 #Reconnect if there isn't an active vrni connection
 $now=get-date
-if ($defaultvRNIConnection.AuthTokenExpiry -ge $now) 
-{ 
+if ($defaultvRNIConnection.AuthTokenExpiry -eq $null || $defaultvRNIConnection.AuthTokenExpiry -ge $now) { 
     $vrniCreds=Get-Secret -name vrni
-    Connect-vRNIServer -Server "vrni.far-away.galaxy" -Credential $vrniCreds 
+    Connect-vRNIServer -Server $vRNI_Server -Credential $vrniCreds 
 }
 
 #Reconnect if there isn't an active NSX connection
-
-if ($global:DefaultNsxtServers.User -eq $null ) 
-{ 
+if ($global:DefaultNsxtServers.User -eq $null ) { 
     $nsxCreds=Get-Secret -name nsx
-    Connect-NsxtServer -Server "nsx-t-mgr.far-away.galaxy" -Credential $nsxCreds
+    Connect-NsxtServer -Server $NSX_Server -Credential $nsxCreds
 } 
-
 
 $domain_id="default"
 $group_id="PowerNSX-Test"
