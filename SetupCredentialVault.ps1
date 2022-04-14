@@ -8,8 +8,7 @@ else {
     Register-SecretVault -Name LocalStore -ModuleName Microsoft.PowerShell.SecretStore  -DefaultVault
 }
 
-
-#Add credentials to vault after entering the first credentials you will be prompted
+#Add credentials to vault
 $vrniCreds=Get-Secret -name vrni -ErrorAction SilentlyContinue
 if ($vrniCreds -eq $null) {
     Get-Credential -username "admin@local" -Title "The next prompt is to add your vRNI admin@local Credentals to the Vault" | set-secret -name vrni
