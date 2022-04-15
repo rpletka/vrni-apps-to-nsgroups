@@ -6,7 +6,7 @@ $NSX_Server="nsx-t-mgr.far-away.galaxy"
 
 #Reconnect if there isn't an active vrni connection
 $now=get-date
-if ($defaultvRNIConnection.AuthTokenExpiry -eq $null || $defaultvRNIConnection.AuthTokenExpiry -ge $now) { 
+if ($defaultvRNIConnection.AuthTokenExpiry -eq $null && $defaultvRNIConnection.AuthTokenExpiry -le $now) { 
     $vrniCreds=Get-Secret -name vrni
     Connect-vRNIServer -Server $vRNI_Server -Credential $vrniCreds 
 }
@@ -87,14 +87,14 @@ get-vrniapplication | ForEach-Object {
         $vm_service=get-nsxtservice com.vmware.nsx.fabric.virtual_machines
         $vm=$vm_service.list().results |where {$_.external_id -eq $vrni_vm.vm_UUID}
         #$vm|format-list
-        $tags = @(
+        $tags = @(ß
             [pscustomobject]@{scope='vrniApplication';tag=$currentApplication.Name}
             #[pscustomobject]@{scope='vrniTier'; tag='TBD'}
         )
         $vm_tag_update = @{external_id=$vm.external_id;tags=$tags}
         Write-Host "Updating tags..."
         $vm_service.updatetags($vm_tag_update)
-        Write-Host "UGet-vRNIApplicationMemberVMpdate complete"
+        Write-Host "Update complete"
     }
 }
 
