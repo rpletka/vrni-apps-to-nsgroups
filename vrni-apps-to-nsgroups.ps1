@@ -7,12 +7,14 @@ $NSX_Server="nsx-t-mgr.far-away.galaxy"
 #Reconnect if there isn't an active vrni connection
 $now=get-date
 if ($defaultvRNIConnection.AuthTokenExpiry -eq $null && $defaultvRNIConnection.AuthTokenExpiry -le $now) { 
+    Write-Host "Connecting to $vRNI_Server"
     $vrniCreds=Get-Secret -name vrni
     Connect-vRNIServer -Server $vRNI_Server -Credential $vrniCreds 
 }
 
 #Reconnect if there isn't an active NSX connection
 if ($global:DefaultNsxtServers.User -eq $null ) { 
+    Write-Host "Connecting to $NSX_Server (Standby this is a long operation)..."
     $nsxCreds=Get-Secret -name nsx
     Connect-NsxtServer -Server $NSX_Server -Credential $nsxCreds
 } 
@@ -75,7 +77,7 @@ get-vrniapplication | ForEach-Object {
         $Member=$_
         $Entity=$_.entity_id 
         if ($Member.entity_type -eq "VirtualMachine") {
-            Write-Host "Getting vrni VM for entity_id $Entity "
+            Write-Host "Getting vrni VM for entity_id $Entity (Standby this is a long operation)..."
             $vrni_vm=get-vrnivm|where-object { $_.entity_id -match $Entity}
             Write-Host "Processing VM " $vrni_vm.name "..."
         }
@@ -87,7 +89,7 @@ get-vrniapplication | ForEach-Object {
         $vm_service=get-nsxtservice com.vmware.nsx.fabric.virtual_machines
         $vm=$vm_service.list().results |where {$_.external_id -eq $vrni_vm.vm_UUID}
         #$vm|format-list
-        $tags = @(ß
+        $tags = @(
             [pscustomobject]@{scope='vrniApplication';tag=$currentApplication.Name}
             #[pscustomobject]@{scope='vrniTier'; tag='TBD'}
         )
