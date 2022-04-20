@@ -1,4 +1,4 @@
-This scrpt will read applicaiotns from vRealize Network Insight and create a group for each application with membership criteria and tag the vms to create dynamic membership of each application group.  The script will update existing groups and VMS.  It will add tags to vms but does not remove tags.
+This scrpt will read applications from vRealize Network Insight and create a group for each application with membership criteria and tag the vms to create dynamic membership of each application group.  The script will update existing groups and VMS.  It will add tags to vms but does not remove tags.
 
 This was developed on powershell 7.2.2.
 
