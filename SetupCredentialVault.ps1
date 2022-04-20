@@ -1,3 +1,4 @@
+Set-SecretStoreConfiguration -Authentication None -Confirm:$false
 #If LocalVault doesn't exist create Local Vault
 $Vault=Get-SecretVault LocalStore -ErrorAction SilentlyContinue
 if ( $Vault.IsDefault ) {
