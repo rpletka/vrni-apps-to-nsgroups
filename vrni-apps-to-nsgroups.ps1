@@ -76,23 +76,17 @@ get-vrniapplication | ForEach-Object {
             else {
                 $vrni_vm=Get-vRNIEntityName -EntityID $Entity
             }
-            #$vrni_vm=get-vrnivm|where-object { $_.entity_id -match $Entity}
             Write-Host "Processing VM " $vrni_vm.name "..."
         }
         else {
             Write-Host "Skipping " $Member.entity_type
         }
-        #$vrni_vm |format-list
-        Write-Host "Getting NSX VM"
-        #$vm_service=get-nsxtservice com.vmware.nsx.fabric.virtual_machines
-        #$vm=$vm_service.list().results |where {$_.external_id -eq $vrni_vm.vm_UUID}
         if ($useUUID){
             $vm=$nsx_vms |where {$_.external_id -eq $vrni_vm.vm_UUID}
         }
         else {
             $vm=$nsx_vms |where {$_.display_name -eq $vrni_vm.name}
         }
-        #$vm|format-list
         $tags = @(
             [pscustomobject]@{scope='vrniApplication';tag=$currentApplication.Name}
             #[pscustomobject]@{scope='vrniTier'; tag='TBD'}
