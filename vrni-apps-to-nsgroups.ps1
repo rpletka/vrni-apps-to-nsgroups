@@ -8,7 +8,7 @@ $NSX_Server="nsx-t-mgr.far-away.galaxy"
 
 #Reconnect if there isn't an active vrni connection
 $now=get-date
-if ($defaultvRNIConnection.AuthTokenExpiry -eq $null || $defaultvRNIConnection.AuthTokenExpiry -le $now) { 
+if ($defaultvRNIConnection.AuthTokenExpiry -eq $null -or $defaultvRNIConnection.AuthTokenExpiry -lt $now) { 
     Write-Host "Connecting to $vRNI_Server"
     $vrniCreds=Get-Secret -name vrni
     Connect-vRNIServer -Server $vRNI_Server -Credential $vrniCreds 
@@ -69,7 +69,6 @@ get-vrniapplication | ForEach-Object {
         $Member=$_
         $Entity=$_.entity_id 
         if ($Member.entity_type -eq "VirtualMachine") {
-            Write-Host "Getting vrni VM for entity_id $Entity (Standby this is a long operation)..."
             if ($useUUID){
                 $vrni_vm=$vrni_vms|where-object { $_.entity_id -match $Entity}
             }
@@ -94,7 +93,6 @@ get-vrniapplication | ForEach-Object {
         $vm_tag_update = @{external_id=$vm.external_id;tags=$tags}
         Write-Host "Updating tags..."
         $vm_service.updatetags($vm_tag_update)
-        Write-Host "Update complete"
     }
 }
 
