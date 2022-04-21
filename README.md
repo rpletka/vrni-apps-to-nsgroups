@@ -32,6 +32,7 @@ Run vrni-apps-to-nsgroups.ps1 and/or schedule regular syncronization with the ta
 
 ![image](https://user-images.githubusercontent.com/11322247/164509226-0b31b955-1ccf-44cb-b365-a8e818a57eda.png)
 
+### Example Initial Sync
 Here is an example syncing 2 apps with 11 vms total.  Note the first run takes significantly longer than additional executions within the session time out.  This is because PowerNSX takes a few minutes to connect but the script reuses the connection if the token hasn't expired.
 
 ![image](https://user-images.githubusercontent.com/11322247/164519225-8eb84770-cada-4eee-9f21-f29397c9e1c1.png)
