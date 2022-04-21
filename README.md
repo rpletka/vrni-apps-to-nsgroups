@@ -39,9 +39,9 @@ Here is an example syncing 2 apps with 11 vms total.  Note the first run takes s
 
 ![image](https://user-images.githubusercontent.com/11322247/164519225-8eb84770-cada-4eee-9f21-f29397c9e1c1.png)
 
-### Find vrni-apps-to-nsgroup Managed Groups in NSX
+### Find Managed Groups in NSX
 
-Easily find the groups that were created / updated by searching for vrn-apps-to-nsgroups to find all the groups with a description of "This group is managed by vrni-apps-to-nsgroups.ps1"
+Easily find the groups that were created / updated by searching for "vrn-apps-to-nsgroups" to find all the groups with a description of "This group is managed by vrni-apps-to-nsgroups.ps1"
 
 ![image](https://user-images.githubusercontent.com/11322247/164509328-d54312e8-c4d8-4909-9b57-a9f8e71f3780.png)
 
