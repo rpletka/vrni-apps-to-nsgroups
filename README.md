@@ -33,7 +33,7 @@ vRNI Saved Applications
 
 Here is an example syncing 2 apps with 11 vms total.  Note the first run takes significantly longer than additional executions within the session time out.  This is because PowerNSX takes a few minutes to connect but the script reuses the connection if the token hasn't expired.
 
-```shell
+```powershell
 PS /Users/rpletka/Documents/git/vrni-apps-to-nsgroups> ./vrni-apps-to-nsgroups.ps1
 Connecting to vrni.far-away.galaxy
 
