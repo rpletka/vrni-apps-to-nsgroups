@@ -1,4 +1,4 @@
-#Sync vRNI Applications to NSX Security Groups
+# Sync vRNI Applications to NSX Security Groups
 
 This scrpt will read applications from vRealize Network Insight to:
 - Itterate through all the applcations in vRNI
@@ -6,7 +6,11 @@ This scrpt will read applications from vRealize Network Insight to:
 - Tag the VMs in NSX with a scope of vrniApplication and tag equal to the vRNI Applciation name
 - Note the script does not currently remove deleted application groups or tags from VMs that are removed from applications
 
-##Installation
+## Installation Steps
+
+1. Run the SetupModules.ps1 one time to install PowerVRNI and PowerNSX
+2. Run the SetupCredentialVault one time on your target powershell host to store your credentials for vrni and PowerNSX
+3. Update the nsx and vrni server variables at the top of vrni-apps-to-nsgroups.ps1. 
 
 This was developed with the following versions:
 - Powershell 7.2.2
@@ -15,11 +19,7 @@ This was developed with the following versions:
 - Microsoft.Powershell.SecretStore 1.0.6
 - Microsoft.Powershell.SecretManagement 1.1.2
 
-1. Run the SetupModules.ps1 one time to install PowerVRNI and PowerNSX
-2. Run the SetupCredentialVault one time on your target powershell host to store your credentials for vrni and PowerNSX
-3. Update the nsx and vrni server variables at the top of vrni-apps-to-nsgroups.ps1. 
-
-##Usage
+## Usage
 Run vrni-apps-to-nsgroups.ps1 and/or schedule regular syncronization with the task scheduler of choice. Progress will be reported to the console.  Groups will be added/updated to NSX and NSX VM tags will be updated.
 
 '''
