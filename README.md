@@ -1,7 +1,6 @@
 # Sync vRNI Applications to NSX Security Groups
 
 This scrpt will read applications from vRealize Network Insight to:
-- Itterate through all the applcations in vRNI
 - Create or update a group for each application with membership criteria of scope vrniApplication and tag equal to the vRNI Applciation name.
 - Tag the VMs in NSX with a scope of vrniApplication and tag equal to the vRNI Applciation name
 - Note the script does not currently remove deleted application groups or tags from VMs that are removed from applications
