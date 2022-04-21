@@ -8,15 +8,18 @@ This scrpt will read applications from vRealize Network Insight to:
 ## Installation Steps
 
 1. Run the SetupModules.ps1 one time to install PowerVRNI and PowerNSX
-2. Run the SetupCredentialVault one time on your target powershell host to store your credentials for vrni and PowerNSX
+2. Run the SetupCredentialVault one time on your target powershell host to store your credentials for vRNI and NSX-T
 3. Update the nsx and vrni server variables at the top of vrni-apps-to-nsgroups.ps1. 
 
-This was developed with the following versions:
+This was developed against the following versions:
 - Powershell 7.2.2
 - PowerNSX 3.0.119
 - PowervRNI 6.51.185
 - Microsoft.Powershell.SecretStore 1.0.6
 - Microsoft.Powershell.SecretManagement 1.1.2
+- NSX-T 3.2.0.1.0.19232396
+- vRNI 6.5.1.1645037705 
+
 
 ## Usage
 Run vrni-apps-to-nsgroups.ps1 and/or schedule regular syncronization with the task scheduler of choice. Progress will be reported to the console.  Groups will be added/updated to NSX and NSX VM tags will be updated.
