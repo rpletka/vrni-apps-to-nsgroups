@@ -11,7 +11,7 @@ else {
 
 #Add credentials to vault
 $vrniCreds=Get-Secret -name vrni -ErrorAction SilentlyContinue
-if ($vrniCreds -eq $null) {
+if ($nule -eq $vrniCreds) {
     Get-Credential -username "admin@local" -Title "The next prompt is to add your vRNI admin@local Credentals to the Vault" | set-secret -name vrni
 }
 else {
@@ -19,7 +19,7 @@ else {
 }
 
 $nsxCreds=Get-Secret -name nsx -ErrorAction SilentlyContinue
-if ($nsxCreds -eq $null) {
+if ($nule -eq $nsxCreds) {
     Get-Credential -username admin -Title "The next prompt is to store your NSX admin Credentals to the Vault" | set-secret -name nsx
 }
 else {
