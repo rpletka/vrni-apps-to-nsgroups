@@ -28,108 +28,32 @@ Run vrni-apps-to-nsgroups.ps1 and/or schedule regular syncronization with the ta
 
 ## Example
 
-vRNI Saved Applications
+### Example 2 vRNI Saved Applications
 ![image](https://user-images.githubusercontent.com/11322247/164509226-0b31b955-1ccf-44cb-b365-a8e818a57eda.png)
 
 Here is an example syncing 2 apps with 11 vms total.  Note the first run takes significantly longer than additional executions within the session time out.  This is because PowerNSX takes a few minutes to connect but the script reuses the connection if the token hasn't expired.
 
-```shell
-PS /Users/rpletka/Documents/git/vrni-apps-to-nsgroups> ./vrni-apps-to-nsgroups.ps1
-Connecting to vrni.far-away.galaxy
+![image](https://user-images.githubusercontent.com/11322247/164519225-8eb84770-cada-4eee-9f21-f29397c9e1c1.png)
 
-Server          : vrni.far-away.galaxy
-AuthToken       : 9ELm6IZKqkgrqw+giS3FVg==
-AuthTokenExpiry : 4/21/2022 5:11:26 PM
+### Find vrni-apps-to-nsgroup Managed Groups in NSX
 
-Connecting to nsx-t-mgr.far-away.galaxy (Standby this is a long operation)...
+Easily find the groups that were created / updated by searching for vrn-apps-to-nsgroups to find all the groups with a description of "This group is managed by vrni-apps-to-nsgroups.ps1"
 
-SessionSecret    : 
-Uid              : /CisServer=admin@nsx-t-mgr.far-away.galaxy:443/
-Id               : /CisServer=admin@nsx-t-mgr.far-away.galaxy:443/
-ServiceUri       : https://nsx-t-mgr.far-away.galaxy/
-User             : admin
-IsConnected      : True
-CisResource      : 
-CisResourceState : 
-RefCount         : 1
-Port             : 443
-Name             : nsx-t-mgr.far-away.galaxy
+![image](https://user-images.githubusercontent.com/11322247/164509328-d54312e8-c4d8-4909-9b57-a9f8e71f3780.png)
 
-Getting NSX Policy Service
-Pre-loading vrni vms (Standby this is a long operation)...
-Pre-loading NSX vms...
-Processing App  Books01 ... 
-Creating/updating group Books01
-Group Updated
-Getting member Vms for  Books01
-Processing VM  Books01-Web01
-Updating tags
-Processing VM  Books01-Web02
-Updating tags
-Processing VM  Books01-App01
-Updating tags
-Processing VM  Avi-se-chone
-Updating tags
-Processing VM  Books01-DB01
-Updating tags
-Processing VM  Avi-se-ghwqq
-Updating tags
-Processing VM  Books01-App02
-Updating tags
-Processing App  Horizon ... 
-Creating/updating group Horizon
-Group Updated
-Getting member Vms for  Horizon
-Processing VM  VDI-2
-Updating tags
-Processing VM  cs1
-Updating tags
-Processing VM  VDI-1
-Updating tags
-Completed in 2.44095005 Minutes
-```
+### Example Group Definition
 
 ![image](https://user-images.githubusercontent.com/11322247/164510034-80f6acb3-403a-4ea8-83bf-bb8c6a560e95.png)
-![image](https://user-images.githubusercontent.com/11322247/164509328-d54312e8-c4d8-4909-9b57-a9f8e71f3780.png)
+
+### Example Group Membership
+
 ![image](https://user-images.githubusercontent.com/11322247/164509588-a02034ed-b409-4973-ad17-14dc138b9b70.png)
 
-'''shell
-PS /Users/rpletka/Documents/git/vrni-apps-to-nsgroups> ./vrni-apps-to-nsgroups.ps1
-Using existing connection to vrni.far-away.galaxy
-Using existing connection to nsx-t-mgr.far-away.galaxy
-Getting NSX Policy Service
-Pre-loading vrni vms (Standby this is a long operation)...
-Pre-loading NSX vms...
-Processing App Books01... 
-Creating/updating group Books01
-Group Updated
-Getting member Vms for  Books01
-Processing VM Books01-Web01
-Updating tags
-Processing VM Books01-Web02
-Updating tags
-Processing VM Books01-App01
-Updating tags
-Processing VM Avi-se-chone
-Updating tags
-Processing VM Books01-DB01
-Updating tags
-Processing VM Avi-se-ghwqq
-Updating tags
-Processing VM Books01-App02
-Updating tags
-Processing App Horizon... 
-Creating/updating group Horizon
-Group Updated
-Getting member Vms for  Horizon
-Processing VM VDI-2
-Updating tags
-Processing VM cs1
-Updating tags
-Processing VM VDI-1
-Updating tags
-Completed in 0.393595033333333 Minutes
-'''
+### Additional Syncs Are Faster
+Subsequent runs are faster because they reuse the existing connections to vRNI and NSX
+
+![image](https://user-images.githubusercontent.com/11322247/164519443-f607dbf5-4075-4ad2-9a0a-1320d177e0b2.png)
+
 ## License
 
 Network Insight Python SDK is licensed under GPL v2
