@@ -22,9 +22,9 @@ This was developed with the following versions:
 ## Usage
 Run vrni-apps-to-nsgroups.ps1 and/or schedule regular syncronization with the task scheduler of choice. Progress will be reported to the console.  Groups will be added/updated to NSX and NSX VM tags will be updated.
 
-'''
+```
 ./vrni-apps-to-nsgroups.ps1
-'''
+```
 
 ## Example
 
@@ -33,7 +33,7 @@ vRNI Saved Applications
 
 Here is an example syncing 2 apps with 11 vms total.  Note the first run takes significantly longer than additional executions within the session time out.  This is because PowerNSX takes a few minutes to connect but the script reuses the connection if the token hasn't expired.
 
-'''shell
+```shell
 PS /Users/rpletka/Documents/git/vrni-apps-to-nsgroups> ./vrni-apps-to-nsgroups.ps1
 Connecting to vrni.far-away.galaxy
 
@@ -87,7 +87,7 @@ Updating tags
 Processing VM  VDI-1
 Updating tags
 Completed in 2.44095005 Minutes
-'''
+```
 
 ![image](https://user-images.githubusercontent.com/11322247/164510034-80f6acb3-403a-4ea8-83bf-bb8c6a560e95.png)
 ![image](https://user-images.githubusercontent.com/11322247/164509328-d54312e8-c4d8-4909-9b57-a9f8e71f3780.png)
