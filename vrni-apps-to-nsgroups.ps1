@@ -17,31 +17,35 @@
 Import-Module PowervRNI
 Import-Module PowerNSX
 
-
-
-#Server Configuration
+#Server Configuration - Set vRNI_Server or vRNI_Cloud_API_Token leave the other one empty e.g. ""
 $vRNI_Server="vrni.far-away.galaxy"
+$vRNI_Cloud_API_Token=""
 $NSX_Server="nsx-t-mgr.far-away.galaxy"
 
 #The logic can lookup the NSX vms by name or UUID.  Lookup by name is a little faster but there could be multiple vms with the same name.  Recommend leaving useUUID set to true.
 $useUUID=$true
 
-#Reconnect if there isn't an active vrni connection
-$start_time=get-date
-if ($nule -eq $defaultvRNIConnection.AuthTokenExpiry -or $defaultvRNIConnection.AuthTokenExpiry -lt $start_time) { 
-    Write-Host "Connecting to $vRNI_Server"
-    $vrniCreds=Get-Secret -name vrni
-    Connect-vRNIServer -Server $vRNI_Server -Credential $vrniCreds | Format-List
-}
-else { Write-Host "Using existing connection to $vrni_Server"}
+$start_time=Get-Date
 
 #Reconnect if there isn't an active NSX connection
-if ($nule -eq $global:DefaultNsxtServers.User ) { 
+if ($null -eq $global:DefaultNsxtServers.User ) { 
     Write-Host "Connecting to $NSX_Server (Standby this is a very long operation)..."
     $nsxCreds=Get-Secret -name nsx
     Connect-NsxtServer -Server $NSX_Server -Credential $nsxCreds | Format-List
 }
 else { Write-Host "Using existing connection to $NSX_Server"}
+
+if ($vRNI_Cloud_API_Token -eq "" ) {
+    if ($nule -eq $defaultvRNIConnection.AuthTokenExpiry -or $defaultvRNIConnection.AuthTokenExpiry -lt $start_time) { 
+        Write-Host "Connecting to $vRNI_Server"
+        $vrniCreds=Get-Secret -name vrni
+        Connect-vRNIServer -Server $vRNI_Server -Credential $vrniCreds | Format-List
+    }
+    else { Write-Host "Using existing connection to $vrni_Server"}
+} 
+else {
+    Connect-NIServer -RefreshToken $vRNI_Cloud_API_Token
+}
 
 $domain_id="default"
 Write-Host "Getting NSX Policy Service"
